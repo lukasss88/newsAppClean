@@ -1,9 +1,70 @@
-<div class="content">
-    <div *ngIf="(article$ | async) as article">
-        {{ article.title }} details
-        <!-- Artile man image -->
-        <!-- Artile title, description, metadata -->
-        <!-- Read more button -->
-        <!-- Comments section -->
+<div class="content container px-0">
+  <div *ngIf="article$ | async as article">
+    <!-- Artile man image -->
+    <div class="image-wrapper">
+      <div
+        class="image"
+        [ngStyle]="{
+          'background-image': 'url(' + article.urlToImage + ')'
+        }"
+      ></div>
     </div>
+
+    <!-- Artile title, description, metadata -->
+    <div class="d-flex flex-wrap">
+      <div class="left-section">
+        <div class="info text-right p-4">
+          <p>{{ article.source?.name }}</p>
+          <p>{{ article.author }}</p>
+          <p>{{ article.publishedAt | date: 'mediumDate' }}</p>
+          <p>3 comments</p>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="main-content p-4">
+          <h3 class="title">{{ article.title }}</h3>
+          <div class="subtitle mt-4">{{ article.description }}</div>
+          <p class="description text-justify my-4">{{ article.content }}</p>
+
+          <!-- Read more button -->
+          <div class="d-flex justify-content-center">
+            <button class="read-more-btn">Read more</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments section -->
+    <footer class="mt-4">
+      <div class="col-12 comments-footer">
+        <div class="comments-counts"><h2>3 comments</h2></div>
+        <div class="comment p-3" *ngFor="let comment of comments">
+          <div class="row">
+            <div class="col-lg-2">
+              <img
+                src="{{ comment.avatar }}"
+                alt=""
+                class="comment__img img-fluid"
+              />
+            </div>
+            <div class="col-lg-10">
+              <div class="row">
+                <div class="col-12 d-flex justify-content-between">
+                  <span class="comment__author">{{ comment.name }}</span>
+                  <span class="comment__date">{{
+                    comment.date | date: 'mediumDate'
+                  }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  {{ comment.comment }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
 </div>

@@ -1,10 +1,60 @@
-<div class="content">
-    <div *ngFor="let article of articles">
-        <a routerLink="/article" [state]="article">{{ article.title }}</a>
+<div class="content container mt-4">
+  <!-- Search mat input with debouncing and mat progress bar for loading -->
+  <div class="row w-100">
+    <div class="col-lg-4 col-md-12">
+      <mat-form-field>
+        <input matInput placeholder="Search" [formControl]="searchControl" />
+        <mat-progress-bar
+          class="progress-bar"
+          mode="indeterminate"
+          *ngIf="isLoading"
+        ></mat-progress-bar>
+      </mat-form-field>
     </div>
+  </div>
 
-    <!-- Search mat input with debouncing and mat progress bar for loading -->
-    <!-- List of fetched articles as snippets per the provided designs -->
-    <!-- No results indication -->
-
+  <!-- List of fetched articles as snippets per the provided designs -->
+  <ng-container
+    *ngIf="
+      (data$ | async)?.articles.length > 0 &&
+        (data$ | async)?.articles as articles;
+      else noResults
+    "
+  >
+    <div class="row w-100">
+      <div
+        *ngFor="let article of articles"
+        class="col-lg-4 col-md-12 article-wrapper"
+        (click)="goToDetails(article)"
+      >
+        <div class="image-wrapper">
+          <div
+            class="image"
+            [ngStyle]="{
+              'background-image': 'url(' + article.urlToImage + ')'
+            }"
+          ></div>
+        </div>
+        <div class="text-content">
+          <div class="subtitle">
+            <span class="source mr-2">{{ article.source.name }}</span>
+            <span class="published">{{
+              article.publishedAt | date: 'mediumDate'
+            }}</span>
+          </div>
+          <h3 class="title my-3">{{ article.title }}</h3>
+          <p class="description">{{ article.description }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
+<!-- No results indication -->
+<ng-template #noResults>
+  <div
+    *ngIf="searchControl.value"
+    class="col-12 d-flex justify-content-center no-results"
+  >
+    No results found for {{ searchControl.value }}
+  </div>
+</ng-template>

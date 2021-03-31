@@ -1,0 +1,66 @@
+@import '../../styles.scss';
+
+.content {
+  background-color: white;
+}
+
+.image-wrapper {
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 450px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.main-content {
+  margin-top: -40px;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  z-index: 2;
+  background-color: white;
+}
+
+.info {
+  background-color: white;
+}
+
+.left-section {
+  flex: 1 0 25%;
+}
+
+.right-section {
+  flex: 3 1 75%;
+}
+
+.read-more-btn {
+  border-radius: 30px;
+  color: white;
+  background: $primary-color;
+  cursor: pointer;
+  border: none;
+  padding: 5px 15px;
+  outline: none;
+}
+
+.comment__img {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+.comment__author {
+  font-weight: 400;
+}
+
+.comment__img {
+  height: 100px;
+}
+
+footer {
+  background: white;
+}
